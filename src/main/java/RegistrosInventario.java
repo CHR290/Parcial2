@@ -42,4 +42,13 @@ public class RegistrosInventario {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
+
+    @Override
+    public String toString() {
+        return "==================" +
+                "codigo: " + codigo +
+                "talla: " + talla  +
+                "color: " + color  +
+                "cantidad: " + cantidad;
+    }
 }

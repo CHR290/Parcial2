@@ -70,6 +70,7 @@ public class Empresa {
         }
         return existe;
     }
+
     public void agregarPrenda(Prenda prenda){
         catalogo.add(prenda);
         System.out.println("la prenda se ha agregado al catalogo");

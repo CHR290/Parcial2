@@ -183,11 +183,27 @@ public class Sucursal {
     }
 
     public boolean verificarRegistro(RegistrosInventario nuevoRegistro){
-    boolean existe = false;
+        boolean existe = false;
         for(RegistrosInventario registro:inventario){
-
+            if(registro.getTalla().equalsIgnoreCase(nuevoRegistro.getTalla())
+            &&registro.getColor().equalsIgnoreCase(nuevoRegistro.getColor())
+            &&registro.getCodigo()==nuevoRegistro.getCodigo()){
+                existe = true;
+                break;
+            }
         }
         return existe;
+    }
+
+    public void agregarRegistro(RegistrosInventario registro){
+        inventario.add(registro);
+        System.out.println("se ha agregado el registro al inventario");
+    }
+
+    public void mostrarInventario(){
+        for(RegistrosInventario registro: inventario){
+            System.out.println(registro);
+        }
     }
 
 }

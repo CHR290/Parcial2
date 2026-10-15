@@ -52,10 +52,6 @@ public class App {
                     String marca = sc.nextLine();
                     System.out.println("ingrese el valor por unidad de la prenda");
                     double precio = Double.parseDouble(sc.nextLine());
-                    System.out.println("ingrese la talla de la prenda");
-                    String talla = sc.nextLine();
-                    System.out.println("ingrese el color de la prenda");
-                    String color = sc.nextLine();
                     System.out.println("escoja la categoria de la prenda");
                     System.out.println("1. camiseta");
                     System.out.println("2. pantalon");
@@ -81,7 +77,7 @@ public class App {
                             categoriaPrenda = CategoriaPrenda.CALZADO;
                             break;
                     }
-                    Prenda prenda = new Prenda(codigoPrenda, nombrePrenda, marca, precio, talla, color, categoriaPrenda);
+                    Prenda prenda = new Prenda(codigoPrenda, nombrePrenda, marca, precio, categoriaPrenda);
                     empresa.agregarPrenda(prenda);
                     break;
                 case 2:
@@ -107,7 +103,17 @@ public class App {
                 case 12:
 
                 case 13:
-
+                    System.out.println("ingrese el codigo de la sucursal");
+                    int codigoSucursal = Integer.parseInt(sc.nextLine());
+                    System.out.println("ingrese el codigo de la prenda");
+                    int codigo = Integer.parseInt(sc.nextLine());
+                    System.out.println("ingrese la talla");
+                    String talla = sc.nextLine();
+                    System.out.println("ingrese el color");
+                    String color = sc.nextLine();
+                    System.out.println("ingrese la cantidad");
+                    int cantidad = Integer.parseInt(sc.nextLine());
+                    RegistrosInventario registro = new RegistrosInventario(talla, color, cantidad, codigo);
                 case 14:
 
                 case 15:
