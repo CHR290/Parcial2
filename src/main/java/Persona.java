@@ -1,16 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Persona {
     private int documentoIdentidad;
     private String nombre;
     private String correo;
     private String telefono;
-    private String historial;
+    private List<Venta> historial;
 
-    public Persona(int documentoIdentidad, String nombre, String correo, String telefono, String historial) {
+    public Persona(int documentoIdentidad, String nombre, String correo, String telefono) {
         this.documentoIdentidad = documentoIdentidad;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-        this.historial = historial;
+        historial = new ArrayList<>();
     }
 
     public int getDocumentoIdentidad() {
@@ -45,11 +48,11 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    public String getHistorial() {
+    public List<Venta> getHistorial() {
         return historial;
     }
 
-    public void setHistorial(String historial) {
+    public void setHistorial(List<Venta> historial) {
         this.historial = historial;
     }
 }

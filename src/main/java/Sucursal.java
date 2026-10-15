@@ -1,14 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Sucursal {
     private int codigoUnico;
     private String nombre;
     private String direccion;
     private String ciudad;
+    private List<Cliente> clientes;
+    private List<Vendedor> vendedores;
+    private List<RegistrosInventario> inventario;
 
     public Sucursal(int codigoUnico, String ciudad, String direccion, String nombre) {
         this.codigoUnico = codigoUnico;
         this.ciudad = ciudad;
         this.direccion = direccion;
         this.nombre = nombre;
+        clientes = new ArrayList<>();
+        vendedores = new ArrayList<>();
+        inventario = new ArrayList<>();
     }
 
     public int getCodigoUnico() {
@@ -42,4 +51,29 @@ public class Sucursal {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public List<Vendedor> getVendedores() {
+        return vendedores;
+    }
+
+    public void setVendedores(List<Vendedor> vendedores) {
+        this.vendedores = vendedores;
+    }
+
+    public List<RegistrosInventario> getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(List<RegistrosInventario> inventario) {
+        this.inventario = inventario;
+    }
+
 }
