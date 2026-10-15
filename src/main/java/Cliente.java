@@ -23,4 +23,10 @@ public class Cliente extends Persona{
         this.categoria = categoria;
     }
 
+    @Override
+    public String toString() {
+        return  "codigoAfiliacion: " + codigoAfiliacion +
+                "\ncategoria:" + categoria +
+                super.toString();
+    }
 }

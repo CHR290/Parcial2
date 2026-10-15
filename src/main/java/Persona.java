@@ -55,4 +55,18 @@ public abstract class Persona {
     public void setHistorial(List<Venta> historial) {
         this.historial = historial;
     }
+
+    @Override
+    public String toString() {
+        return  "\ndocumento: " + documento +
+                "\nnombre: " + nombre +
+                "\ncorreo: " + correo +
+                "\ntelefono: " + telefono;
+    }
+
+    public void mostrarHistorial(){
+        for(Venta venta: historial){
+            System.out.println(venta);
+        }
+    }
 }

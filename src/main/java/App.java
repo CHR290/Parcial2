@@ -4,8 +4,10 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18 Armenia", "562803943");
-        Sucursal sucursal = new Sucursal( 3094698, "Armenia", "Carrera 15 calle 18", "ModaStyle HQ");
-        Sucursal sucursal2 = new Sucursal( 6631233, "Quimbaya", "Carrera 2 calle 8", "ModaStyle Quimbaya");
+        Sucursal hq = new Sucursal( 3094698, "Armenia", "Carrera 15 calle 18", "ModaStyle HQ");
+        Sucursal quimbaya = new Sucursal( 6631233, "Quimbaya", "Carrera 2 calle 8", "ModaStyle Quimbaya");
+        empresa.agregarSucursal(hq);
+        empresa.agregarSucursal(quimbaya);
         int opcion = 0;
         do {
             System.out.println("====ModaStyle====");
@@ -34,7 +36,6 @@ public class App {
             System.out.println("====informacion====");
             System.out.println("18. ver ingresos de sucursal");
             System.out.println("19. consultar articulo mas vendido.");
-
             opcion = sc.nextInt();
             sc.nextLine();
             switch (opcion) {
@@ -86,7 +87,7 @@ public class App {
                 case 2:
                     empresa.mostrarCatalogo();
                 case 3:
-                    
+
                 case 4:
 
                 case 5:
