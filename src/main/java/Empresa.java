@@ -6,12 +6,14 @@ public class Empresa {
     private String direccion;
     private String nit;
     private List<Sucursal> sucursales;
+    private List<Prenda> catalogo;
 
     public Empresa(String nombre, String direccion, String nit) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.nit = nit;
         sucursales = new ArrayList<>();
+        catalogo = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -45,4 +47,32 @@ public class Empresa {
     public void setSucursales(List<Sucursal> sucursales) {
         this.sucursales = sucursales;
     }
+
+    public List<Prenda> getCatalogo() {
+        return catalogo;
+    }
+
+    public void setCatalogo(List<Prenda> catalogo) {
+        this.catalogo = catalogo;
+    }
+
+    public boolean verificarPrenda(int codigo){
+        boolean existe = false;
+        for(Prenda prenda: catalogo){
+            if(prenda.getCodigoUnico()==codigo){
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
+    public void agregarPrenda(Prenda prenda){
+        if(!verificarPrenda(prenda.getCodigoUnico())){
+            catalogo.add(prenda);
+            System.out.println("la prenda se ha agregado al catalogo");
+        }else{
+            System.out.println("la prenda ya existe");
+        }
+    }
+
 }

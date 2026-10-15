@@ -76,4 +76,41 @@ public class Sucursal {
         this.inventario = inventario;
     }
 
+    public boolean verificarPersona(int documento){
+        boolean existe = false;
+        for(Persona persona: clientes){
+            if(persona.getDocumento()==documento){
+                existe = true;
+                break;
+            }
+        }
+        for(Persona persona: vendedores){
+            if(persona.getDocumento()==documento){
+                existe = true;
+                break;
+            }
+        }
+        return existe;
+    }
+
+    public void agregarCliente(Cliente cliente){
+        if(!verificarPersona(cliente.getDocumento())){
+            clientes.add(cliente);
+            System.out.println("se ha agragado al cliente");
+        }else{
+            System.out.println("esta persona ya esta registrada");
+        }
+    }
+
+    public void agregarVendedor(Vendedor vendedor){
+        if(!verificarPersona(vendedor.getDocumento())){
+            vendedores.add(vendedor);
+            System.out.println("se ha agragado al vendedor");
+        }else{
+            System.out.println("esta persona ya esta registrada");
+        }
+    }
+
+    
+
 }

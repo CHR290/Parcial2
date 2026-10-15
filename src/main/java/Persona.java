@@ -2,26 +2,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Persona {
-    private int documentoIdentidad;
+    private int documento;
     private String nombre;
     private String correo;
     private String telefono;
     private List<Venta> historial;
 
-    public Persona(int documentoIdentidad, String nombre, String correo, String telefono) {
-        this.documentoIdentidad = documentoIdentidad;
+    public Persona(int documento, String nombre, String correo, String telefono) {
+        this.documento = documento;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
         historial = new ArrayList<>();
     }
 
-    public int getDocumentoIdentidad() {
-        return documentoIdentidad;
+    public int getDocumento() {
+        return documento;
     }
 
-    public void setDocumentoIdentidad(int documentoIdentidad) {
-        this.documentoIdentidad = documentoIdentidad;
+    public void setDocumento(int documento) {
+        this.documento = documento;
     }
 
     public String getNombre() {
