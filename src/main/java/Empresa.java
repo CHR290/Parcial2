@@ -75,6 +75,14 @@ public class Empresa {
         catalogo.add(prenda);
         System.out.println("la prenda se ha agregado al catalogo");
     }
+    public Sucursal buscarSucursal(int codigoUnico) {
+        for (Sucursal sucursal : sucursales) {
+            if (sucursal.getCodigoUnico() == codigoUnico) {
+                return sucursal;
+            }
+        }
+        return null;
+    }
 
     public void mostrarCatalogo(){
         for(Prenda prenda:catalogo){

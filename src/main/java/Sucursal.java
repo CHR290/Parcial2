@@ -133,6 +133,13 @@ public class Sucursal {
         }
     }
 
+    public void mostrarClientes() {
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente.getNombre());
+        }
+    }
+
+
     public Cliente buscarCliente(int documento) {
         for (Cliente cliente : clientes) {
             if (cliente.getDocumento() == documento) {
@@ -172,6 +179,13 @@ public class Sucursal {
             }
         }
     }
+
+    public void mostrarVendedores() {
+        for (Vendedor vendedor : vendedores) {
+            System.out.println(vendedor.getNombre());
+        }
+    }
+
 
     public Vendedor buscarVendedor(int documento) {
         for (Vendedor vendedor : vendedores) {
