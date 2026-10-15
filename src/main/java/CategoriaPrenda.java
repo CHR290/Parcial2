@@ -4,11 +4,11 @@ public enum CategoriaPrenda {
     VESTIDO (0.10),
     CHAQUETA (0.15),
     CALZADO (0.05);
-    private double valor;
-    CategoriaPrenda(double valor) {
-        this.valor = valor;
+    private double sobrecargo;
+    CategoriaPrenda(double sobrecargo) {
+        this.sobrecargo = sobrecargo;
     }
-    public double getValor() {
-        return valor;
+    public double getSobrecargo() {
+        return sobrecargo;
     }
 }

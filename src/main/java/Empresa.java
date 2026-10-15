@@ -1,12 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Empresa {
     private String nombre;
     private String direccion;
-    private String ciudad;
+    private String nit;
+    private List<Sucursal> sucursales;
 
-    public Empresa(String nombre, String direccion, String ciudad) {
+    public Empresa(String nombre, String direccion, String nit) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.ciudad = ciudad;
+        this.nit = nit;
+        sucursales = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -25,11 +30,19 @@ public class Empresa {
         this.direccion = direccion;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getNit() {
+        return nit;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    public List<Sucursal> getSucursales() {
+        return sucursales;
+    }
+
+    public void setSucursales(List<Sucursal> sucursales) {
+        this.sucursales = sucursales;
     }
 }
