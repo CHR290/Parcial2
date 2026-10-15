@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18", "Armenia");
+        Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18 Armenia", "562803943");
+        Sucursal sucursal = new Sucursal( 3094698, "Armenia", "Carrera 14 calle 12", "ModaStyle");
         int opcion = 0;
         do {
             System.out.println("====ModaStyle====");
