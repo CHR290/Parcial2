@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18", "Armenia");
+        Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18 Armenia", "562803943");
+        Sucursal sucursal = new Sucursal( 3094698, "Armenia", "Carrera 15 calle 18", "ModaStyle HQ");
+        Sucursal sucursal2 = new Sucursal( 6631233, "Quimbaya", "Carrera 2 calle 8", "ModaStyle Quimbaya");
         int opcion = 0;
         do {
             System.out.println("====ModaStyle====");
@@ -80,10 +82,11 @@ public class App {
                     }
                     Prenda prenda = new Prenda(codigoPrenda, nombrePrenda, marca, precio, talla, color, categoriaPrenda);
                     empresa.agregarPrenda(prenda);
+                    break;
                 case 2:
                     empresa.mostrarCatalogo();
                 case 3:
-
+                    
                 case 4:
 
                 case 5:

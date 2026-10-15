@@ -111,7 +111,7 @@ public class Sucursal {
             System.out.println("esta persona ya esta registrada");
         }
     }
-    public boolean actualizarCliente(int documento, Cliente clienteActualizado) {
+    public void actualizarCliente(int documento, Cliente clienteActualizado) {
         for (Cliente cliente : clientes) {
             if (cliente.getDocumento() == documento) {
                 cliente.setNombre(clienteActualizado.getNombre());
@@ -119,22 +119,17 @@ public class Sucursal {
                 cliente.setTelefono(clienteActualizado.getTelefono());
                 cliente.setCodigoAfiliacion(clienteActualizado.getCodigoAfiliacion());
                 cliente.setCategoria(clienteActualizado.getCategoria());
-                return true;
             }
         }
-        return false;
     }
 
-    public boolean eliminarCliente(int documento) {
-        boolean esEliminado = false;
+    public void eliminarCliente(int documento) {
         for (Cliente cliente : clientes) {
             if (cliente.getDocumento() == documento) {
                 clientes.remove(cliente);
-                esEliminado = true;
                 break;
             }
         }
-        return esEliminado;
     }
 
     public Cliente buscarCliente(int documento) {
@@ -154,7 +149,7 @@ public class Sucursal {
         }
     }
 
-    public boolean actualizarVendedor(int documento, Vendedor vendedorActualizado) {
+    public void actualizarVendedor(int documento, Vendedor vendedorActualizado) {
         for (Vendedor vendedor : vendedores) {
             if (vendedor.getDocumento() == documento) {
                 vendedor.setNombre(vendedorActualizado.getNombre());
@@ -163,22 +158,17 @@ public class Sucursal {
                 vendedor.setCodigo(vendedorActualizado.getCodigo());
                 vendedor.setFechaContratacion(vendedorActualizado.getFechaContratacion());
                 vendedor.setSalario(vendedorActualizado.getSalario());
-                return true;
             }
         }
-        return false;
     }
 
-    public boolean eliminarVendedor(int documento) {
-        boolean esEliminado = false;
+    public void eliminarVendedor(int documento) {
         for (Vendedor vendedor : vendedores) {
             if (vendedor.getDocumento() == documento) {
                 vendedores.remove(vendedor);
-                esEliminado = true;
                 break;
             }
         }
-        return esEliminado;
     }
 
     public Vendedor buscarVendedor(int documento) {
