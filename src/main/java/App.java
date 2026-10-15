@@ -22,9 +22,10 @@ public class App {
             System.out.println("7. Consultar historial de compras");
             System.out.println("====Vendedores====");
             System.out.println("8. Agregar vendedor.");
-            System.out.println("19. Actualziar vendedor.");
+            System.out.println("9. Actualizar vendedor.");
             System.out.println("10. Ver vendedor.");
             System.out.println("11. Eliminar vendedor.");
+            System.out.println("=====Ventas====");
             System.out.println("12. Consultar historial de ventas.");
             System.out.println("====Inventario====");
             System.out.println("13. Agregar registro.");
