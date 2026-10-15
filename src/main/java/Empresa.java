@@ -56,6 +56,10 @@ public class Empresa {
         this.catalogo = catalogo;
     }
 
+    public void agregarSucursal(Sucursal sucursal){
+        sucursales.add(sucursal);
+    }
+
     public boolean verificarPrenda(int codigo){
         boolean existe = false;
         for(Prenda prenda: catalogo){

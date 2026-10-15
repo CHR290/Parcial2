@@ -86,16 +86,16 @@ public class Sucursal {
         this.registroVentas = registroVentas;
     }
 
-    public boolean verificarPersona(int documento){
+    public boolean verificarPersona(int documento) {
         boolean existe = false;
-        for(Persona persona: clientes){
-            if(persona.getDocumento()==documento){
+        for (Persona persona : clientes) {
+            if (persona.getDocumento() == documento) {
                 existe = true;
                 break;
             }
         }
-        for(Persona persona: vendedores){
-            if(persona.getDocumento()==documento){
+        for (Persona persona : vendedores) {
+            if (persona.getDocumento() == documento) {
                 existe = true;
                 break;
             }
@@ -103,14 +103,15 @@ public class Sucursal {
         return existe;
     }
 
-    public void agregarCliente(Cliente cliente){
-        if(!verificarPersona(cliente.getDocumento())){
+    public void agregarCliente(Cliente cliente) {
+        if (!verificarPersona(cliente.getDocumento())) {
             clientes.add(cliente);
             System.out.println("se ha agragado al cliente");
-        }else{
+        } else {
             System.out.println("esta persona ya esta registrada");
         }
     }
+
     public void actualizarCliente(int documento, Cliente clienteActualizado) {
         for (Cliente cliente : clientes) {
             if (cliente.getDocumento() == documento) {
@@ -147,11 +148,12 @@ public class Sucursal {
         }
         return null;
     }
-    public void agregarVendedor(Vendedor vendedor){
-        if(!verificarPersona(vendedor.getDocumento())){
+
+    public void agregarVendedor(Vendedor vendedor) {
+        if (!verificarPersona(vendedor.getDocumento())) {
             vendedores.add(vendedor);
             System.out.println("se ha agragado al vendedor");
-        }else{
+        } else {
             System.out.println("esta persona ya esta registrada");
         }
     }
@@ -193,4 +195,13 @@ public class Sucursal {
         }
         return null;
     }
+
+    public boolean verificarRegistro(RegistrosInventario nuevoRegistro){
+    boolean existe = false;
+        for(RegistrosInventario registro:inventario){
+
+        }
+        return existe;
+    }
+
 }
