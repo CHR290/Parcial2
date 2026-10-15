@@ -33,5 +33,4 @@ public class Vendedor extends Persona{
     public void setSalario(double salario) {
         this.salario = salario;
     }
-
 }

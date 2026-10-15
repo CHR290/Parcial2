@@ -111,7 +111,40 @@ public class Sucursal {
             System.out.println("esta persona ya esta registrada");
         }
     }
+    public boolean actualizarCliente(int documento, Cliente clienteActualizado) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getDocumento() == documento) {
+                cliente.setNombre(clienteActualizado.getNombre());
+                cliente.setCorreo(clienteActualizado.getCorreo());
+                cliente.setTelefono(clienteActualizado.getTelefono());
+                cliente.setCodigoAfiliacion(clienteActualizado.getCodigoAfiliacion());
+                cliente.setCategoria(clienteActualizado.getCategoria());
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public boolean eliminarCliente(int documento) {
+        boolean esEliminado = false;
+        for (Cliente cliente : clientes) {
+            if (cliente.getDocumento() == documento) {
+                clientes.remove(cliente);
+                esEliminado = true;
+                break;
+            }
+        }
+        return esEliminado;
+    }
+
+    public Cliente buscarCliente(int documento) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getDocumento() == documento) {
+                return cliente;
+            }
+        }
+        return null;
+    }
     public void agregarVendedor(Vendedor vendedor){
         if(!verificarPersona(vendedor.getDocumento())){
             vendedores.add(vendedor);
@@ -121,6 +154,39 @@ public class Sucursal {
         }
     }
 
+    public boolean actualizarVendedor(int documento, Vendedor vendedorActualizado) {
+        for (Vendedor vendedor : vendedores) {
+            if (vendedor.getDocumento() == documento) {
+                vendedor.setNombre(vendedorActualizado.getNombre());
+                vendedor.setCorreo(vendedorActualizado.getCorreo());
+                vendedor.setTelefono(vendedorActualizado.getTelefono());
+                vendedor.setCodigo(vendedorActualizado.getCodigo());
+                vendedor.setFechaContratacion(vendedorActualizado.getFechaContratacion());
+                vendedor.setSalario(vendedorActualizado.getSalario());
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public boolean eliminarVendedor(int documento) {
+        boolean esEliminado = false;
+        for (Vendedor vendedor : vendedores) {
+            if (vendedor.getDocumento() == documento) {
+                vendedores.remove(vendedor);
+                esEliminado = true;
+                break;
+            }
+        }
+        return esEliminado;
+    }
 
+    public Vendedor buscarVendedor(int documento) {
+        for (Vendedor vendedor : vendedores) {
+            if (vendedor.getDocumento() == documento) {
+                return vendedor;
+            }
+        }
+        return null;
+    }
 }
