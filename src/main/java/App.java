@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Empresa empresa = new Empresa ("ModaStyle", "Carrerra 15 calle 18", "Armenia");
-        int opcion=0;
+        Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18", "Armenia");
+        int opcion = 0;
         do {
             System.out.println("====ModaStyle====");
             System.out.println("====Sucursales====");
@@ -51,5 +51,6 @@ public class App {
 
                 case 5:
             }
-        }
+        } while (opcion!=0);
     }
+}
