@@ -73,4 +73,15 @@ public class Prenda {
         this.categoria = categoria;
     }
 
+    @Override
+    public String toString() {
+        return "======================" +
+                "\n codigoUnico: " + codigoUnico +
+                "\n nombre: " + nombre +
+                "\n marca: " + marca +
+                "\n precio: " + precio +
+                "\n talla: " + talla +
+                "\n color: " + color +
+                "\n categoria: " + categoria;
+    }
 }

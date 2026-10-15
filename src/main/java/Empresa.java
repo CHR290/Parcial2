@@ -67,12 +67,15 @@ public class Empresa {
         return existe;
     }
     public void agregarPrenda(Prenda prenda){
-        if(!verificarPrenda(prenda.getCodigoUnico())){
-            catalogo.add(prenda);
-            System.out.println("la prenda se ha agregado al catalogo");
-        }else{
-            System.out.println("la prenda ya existe");
+        catalogo.add(prenda);
+        System.out.println("la prenda se ha agregado al catalogo");
+    }
+
+    public void mostrarCatalogo(){
+        for(Prenda prenda:catalogo){
+            System.out.println(prenda);
         }
     }
+
 
 }

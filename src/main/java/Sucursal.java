@@ -9,6 +9,7 @@ public class Sucursal {
     private List<Cliente> clientes;
     private List<Vendedor> vendedores;
     private List<RegistrosInventario> inventario;
+    private List<Venta> registroVentas;
 
     public Sucursal(int codigoUnico, String ciudad, String direccion, String nombre) {
         this.codigoUnico = codigoUnico;
@@ -18,6 +19,7 @@ public class Sucursal {
         clientes = new ArrayList<>();
         vendedores = new ArrayList<>();
         inventario = new ArrayList<>();
+        registroVentas = new ArrayList<>();
     }
 
     public int getCodigoUnico() {
@@ -74,6 +76,14 @@ public class Sucursal {
 
     public void setInventario(List<RegistrosInventario> inventario) {
         this.inventario = inventario;
+    }
+
+    public List<Venta> getRegistroVentas() {
+        return registroVentas;
+    }
+
+    public void setRegistroVentas(List<Venta> registroVentas) {
+        this.registroVentas = registroVentas;
     }
 
     public boolean verificarPersona(int documento){
