@@ -3,8 +3,6 @@ public class Prenda {
     private String nombre;
     private String marca;
     private double precio;
-    private String talla;
-    private String color;
     private CategoriaPrenda categoria;
 
     public Prenda(int codigoUnico, String nombre, String marca, double precio, String talla, String color, CategoriaPrenda categoria) {
@@ -12,8 +10,6 @@ public class Prenda {
         this.nombre = nombre;
         this.marca = marca;
         this.precio = precio;
-        this.talla = talla;
-        this.color = color;
         this.categoria = categoria;
     }
 
@@ -49,21 +45,6 @@ public class Prenda {
         this.precio = precio;
     }
 
-    public String getTalla() {
-        return talla;
-    }
-
-    public void setTalla(String talla) {
-        this.talla = talla;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 
     public CategoriaPrenda getCategoria() {
         return categoria;
@@ -80,8 +61,6 @@ public class Prenda {
                 "\n nombre: " + nombre +
                 "\n marca: " + marca +
                 "\n precio: " + precio +
-                "\n talla: " + talla +
-                "\n color: " + color +
                 "\n categoria: " + categoria;
     }
 }
