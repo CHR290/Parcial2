@@ -119,9 +119,57 @@ public class Sucursal {
         return true;
     }
 
-    public void mostrarInventario() {
+    public RegistroInventario buscarRegistro(int codigoPrenda, String talla, String color) {
         for (RegistroInventario registro : inventario) {
-            System.out.println(registro);
+            if (registro.getPrenda().getCodigoUnico() == codigoPrenda
+                    && registro.getTalla().equalsIgnoreCase(talla)
+                    && registro.getColor().equalsIgnoreCase(color)) {
+                return registro;
+            }
+        }
+        return null;
+    }
+
+    public void mostrarDisponibles() {
+        boolean hay = false;
+        for (RegistroInventario registro : inventario) {
+            if (registro.getCantidad() > 0) {
+                System.out.println(registro);
+                hay = true;
+            }
+        }
+        if (!hay) {
+            System.out.println("No hay prendas disponibles en esta sucursal");
         }
     }
+
+    public boolean mostrarAgotados() {
+        boolean hay = false;
+        for (RegistroInventario registro : inventario) {
+            if (registro.getCantidad() == 0) {
+                System.out.println(nombre + " -> " + registro);
+                hay = true;
+            }
+        }
+        return hay;
+    }
+
+    public void mostrarVentas() {
+        if (registroVentas.isEmpty()) {
+            System.out.println("No hay ventas registradas");
+        }
+        for (Venta venta : registroVentas) {
+            System.out.println(venta);
+        }
+    }
+
+    public double calcularIngresos() {
+        double total = 0;
+        for (Venta venta : registroVentas) {
+            total += venta.calcularTotal();
+        }
+        return total;
+    }
+
+
 }

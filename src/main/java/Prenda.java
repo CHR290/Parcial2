@@ -78,6 +78,16 @@ public class Prenda {
         return List.of("XS", "S", "M", "L", "XL").contains(talla.toUpperCase());
     }
 
+    public int calcularUnidadesVendidas() {
+        int total = 0;
+        for (RegistroInventario registro : registros) {
+            for (Detalle detalle : registro.getDetalles()) {
+                total += detalle.getCantidad();
+            }
+        }
+        return total;
+    }
+
     @Override
     public String toString() {
         return "======================" +
