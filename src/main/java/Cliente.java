@@ -1,7 +1,7 @@
 public class Cliente extends Persona{
     private int codigoAfiliacion;
     private CategoriaCliente categoria;
-    public Cliente( String nombre, int documentoIdentidad, String correo, String telefono, int codigoAfiliacion, CategoriaCliente categoria) {
+    public Cliente(int documentoIdentidad, String nombre, String correo, String telefono, int codigoAfiliacion, CategoriaCliente categoria) {
         super(documentoIdentidad, nombre, correo, telefono);
         this.codigoAfiliacion = codigoAfiliacion;
         this.categoria = categoria;
@@ -25,7 +25,8 @@ public class Cliente extends Persona{
 
     @Override
     public String toString() {
-        return  "codigoAfiliacion: " + codigoAfiliacion +
+        return  "=======================" +
+                "\ncodigoAfiliacion: " + codigoAfiliacion +
                 "\ncategoria:" + categoria +
                 super.toString();
     }

@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Prenda {
     private int codigoUnico;
     private String nombre;
     private String marca;
     private double precio;
     private CategoriaPrenda categoria;
+    private List<RegistroInventario> registros;
 
     public Prenda(int codigoUnico, String nombre, String marca, double precio, CategoriaPrenda categoria) {
         this.codigoUnico = codigoUnico;
@@ -11,6 +15,7 @@ public class Prenda {
         this.marca = marca;
         this.precio = precio;
         this.categoria = categoria;
+        registros = new ArrayList<>();
     }
 
     public int getCodigoUnico() {
@@ -45,13 +50,32 @@ public class Prenda {
         this.precio = precio;
     }
 
-
     public CategoriaPrenda getCategoria() {
         return categoria;
     }
 
     public void setCategoria(CategoriaPrenda categoria) {
         this.categoria = categoria;
+    }
+
+    public List<RegistroInventario> getRegistros() {
+        return registros;
+    }
+
+    public double calcularPrecioConRecargo() {
+        return precio * (1 + categoria.getSobrecargo());
+    }
+
+    public boolean tallaValida(String talla) {
+        if (categoria == CategoriaPrenda.CALZADO) {
+            try {
+                int numero = Integer.parseInt(talla);
+                return numero >= 35 && numero <= 44;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return List.of("XS", "S", "M", "L", "XL").contains(talla.toUpperCase());
     }
 
     @Override

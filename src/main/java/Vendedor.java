@@ -36,7 +36,8 @@ public class Vendedor extends Persona{
 
     @Override
     public String toString() {
-        return  "codigo: " + codigo +
+        return  "==================" +
+                "\ncodigo: " + codigo +
                 "\nfecha de contratacion:" + fechaContratacion +
                 "\nsalario: " +salario +
                 super.toString();

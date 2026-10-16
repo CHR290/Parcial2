@@ -6,9 +6,8 @@ public class Sucursal {
     private String nombre;
     private String direccion;
     private String ciudad;
-    private List<Cliente> clientes;
     private List<Vendedor> vendedores;
-    private List<RegistrosInventario> inventario;
+    private List<RegistroInventario> inventario;
     private List<Venta> registroVentas;
 
     public Sucursal(int codigoUnico, String ciudad, String direccion, String nombre) {
@@ -16,7 +15,6 @@ public class Sucursal {
         this.ciudad = ciudad;
         this.direccion = direccion;
         this.nombre = nombre;
-        clientes = new ArrayList<>();
         vendedores = new ArrayList<>();
         inventario = new ArrayList<>();
         registroVentas = new ArrayList<>();
@@ -54,14 +52,6 @@ public class Sucursal {
         this.ciudad = ciudad;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-
     public List<Vendedor> getVendedores() {
         return vendedores;
     }
@@ -70,11 +60,11 @@ public class Sucursal {
         this.vendedores = vendedores;
     }
 
-    public List<RegistrosInventario> getInventario() {
+    public List<RegistroInventario> getInventario() {
         return inventario;
     }
 
-    public void setInventario(List<RegistrosInventario> inventario) {
+    public void setInventario(List<RegistroInventario> inventario) {
         this.inventario = inventario;
     }
 
@@ -86,106 +76,19 @@ public class Sucursal {
         this.registroVentas = registroVentas;
     }
 
-    public boolean verificarPersona(int documento) {
-        boolean existe = false;
-        for (Persona persona : clientes) {
-            if (persona.getDocumento() == documento) {
-                existe = true;
-                break;
-            }
-        }
-        for (Persona persona : vendedores) {
-            if (persona.getDocumento() == documento) {
-                existe = true;
-                break;
-            }
-        }
-        return existe;
-    }
-
-    public void agregarCliente(Cliente cliente) {
-        if (!verificarPersona(cliente.getDocumento())) {
-            clientes.add(cliente);
-            System.out.println("se ha agragado al cliente");
-        } else {
-            System.out.println("esta persona ya esta registrada");
-        }
-    }
-
-    public void actualizarCliente(int documento, Cliente clienteActualizado) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getDocumento() == documento) {
-                cliente.setNombre(clienteActualizado.getNombre());
-                cliente.setCorreo(clienteActualizado.getCorreo());
-                cliente.setTelefono(clienteActualizado.getTelefono());
-                cliente.setCodigoAfiliacion(clienteActualizado.getCodigoAfiliacion());
-                cliente.setCategoria(clienteActualizado.getCategoria());
-            }
-        }
-    }
-
-    public void eliminarCliente(int documento) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getDocumento() == documento) {
-                clientes.remove(cliente);
-                break;
-            }
-        }
-    }
-
-    public void mostrarClientes() {
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente.getNombre());
-        }
-    }
-
-
-    public Cliente buscarCliente(int documento) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getDocumento() == documento) {
-                return cliente;
-            }
-        }
-        return null;
-    }
-
     public void agregarVendedor(Vendedor vendedor) {
-        if (!verificarPersona(vendedor.getDocumento())) {
-            vendedores.add(vendedor);
-            System.out.println("se ha agragado al vendedor");
-        } else {
-            System.out.println("esta persona ya esta registrada");
-        }
-    }
-
-    public void actualizarVendedor(int documento, Vendedor vendedorActualizado) {
-        for (Vendedor vendedor : vendedores) {
-            if (vendedor.getDocumento() == documento) {
-                vendedor.setNombre(vendedorActualizado.getNombre());
-                vendedor.setCorreo(vendedorActualizado.getCorreo());
-                vendedor.setTelefono(vendedorActualizado.getTelefono());
-                vendedor.setCodigo(vendedorActualizado.getCodigo());
-                vendedor.setFechaContratacion(vendedorActualizado.getFechaContratacion());
-                vendedor.setSalario(vendedorActualizado.getSalario());
-            }
-        }
+        vendedores.add(vendedor);
     }
 
     public void eliminarVendedor(int documento) {
-        for (Vendedor vendedor : vendedores) {
-            if (vendedor.getDocumento() == documento) {
-                vendedores.remove(vendedor);
-                break;
-            }
-        }
+        vendedores.removeIf(vendedor -> vendedor.getDocumento() == documento);
     }
 
     public void mostrarVendedores() {
         for (Vendedor vendedor : vendedores) {
-            System.out.println(vendedor.getNombre());
+            System.out.println(vendedor);
         }
     }
-
 
     public Vendedor buscarVendedor(int documento) {
         for (Vendedor vendedor : vendedores) {
@@ -196,28 +99,29 @@ public class Sucursal {
         return null;
     }
 
-    public boolean verificarRegistro(RegistrosInventario nuevoRegistro){
-        boolean existe = false;
-        for(RegistrosInventario registro:inventario){
-            if(registro.getTalla().equalsIgnoreCase(nuevoRegistro.getTalla())
-            &&registro.getColor().equalsIgnoreCase(nuevoRegistro.getColor())
-            &&registro.getCodigo()==nuevoRegistro.getCodigo()){
-                existe = true;
-                break;
+    public boolean verificarRegistro(RegistroInventario nuevoRegistro) {
+        for (RegistroInventario registro : inventario) {
+            if (registro.getTalla().equalsIgnoreCase(nuevoRegistro.getTalla())
+                    && registro.getColor().equalsIgnoreCase(nuevoRegistro.getColor())
+                    && registro.getPrenda().getCodigoUnico() == nuevoRegistro.getPrenda().getCodigoUnico()) {
+                return true;
             }
         }
-        return existe;
+        return false;
     }
 
-    public void agregarRegistro(RegistrosInventario registro){
+    public boolean agregarRegistro(RegistroInventario registro) {
+        if (verificarRegistro(registro)) {
+            return false;
+        }
         inventario.add(registro);
-        System.out.println("se ha agregado el registro al inventario");
+        registro.getPrenda().getRegistros().add(registro);
+        return true;
     }
 
-    public void mostrarInventario(){
-        for(RegistrosInventario registro: inventario){
+    public void mostrarInventario() {
+        for (RegistroInventario registro : inventario) {
             System.out.println(registro);
         }
     }
-
 }

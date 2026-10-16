@@ -1,14 +1,65 @@
 import java.util.Scanner;
 
 public class App {
+    static Scanner sc = new Scanner(System.in);
+
+    static int leerEntero(String mensaje) {
+        while (true) {
+            System.out.println(mensaje);
+            try {
+                return Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un numero entero.");
+            }
+        }
+    }
+
+    static double leerDouble(String mensaje) {
+        while (true) {
+            System.out.println(mensaje);
+            try {
+                return Double.parseDouble(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe ingresar un numero valido.");
+            }
+        }
+    }
+
+    static CategoriaPrenda leerCategoriaPrenda() {
+        CategoriaPrenda[] categorias = CategoriaPrenda.values();
+        while (true) {
+            System.out.println("escoja la categoria de la prenda");
+            for (int i = 0; i < categorias.length; i++) {
+                System.out.println((i + 1) + ". " + categorias[i]);
+            }
+            int op = leerEntero("opcion:");
+            if (op >= 1 && op <= categorias.length) {
+                return categorias[op - 1];
+            }
+            System.out.println("Categoria invalida");
+        }
+    }
+
+    static CategoriaCliente leerCategoriaCliente() {
+        CategoriaCliente[] categorias = CategoriaCliente.values();
+        while (true) {
+            System.out.println("Escoja la categoria del cliente");
+            for (int i = 0; i < categorias.length; i++) {
+                System.out.println((i + 1) + ". " + categorias[i]);
+            }
+            int op = leerEntero("opcion:");
+            if (op >= 1 && op <= categorias.length) {
+                return categorias[op - 1];
+            }
+            System.out.println("Categoria invalida");
+        }
+    }
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Empresa empresa = new Empresa("ModaStyle", "Carrerra 15 calle 18 Armenia", "562803943");
-        Sucursal sucursal = new Sucursal( 3094698, "Armenia", "Carrera 15 calle 18", "ModaStyle HQ");
-        Sucursal sucursal2 = new Sucursal( 6631233, "Quimbaya", "Carrera 2 calle 8", "ModaStyle Quimbaya");
-        empresa.getSucursales().add(sucursal);
-        empresa.getSucursales().add(sucursal2);
-        int opcion = 0;
+        Empresa empresa = new Empresa("ModaStyle", "Carrera 15 calle 18 Armenia", "562803943");
+        empresa.agregarSucursal(new Sucursal(3094698, "Armenia", "Carrera 15 calle 18", "ModaStyle HQ"));
+        empresa.agregarSucursal(new Sucursal(6631233, "Quimbaya", "Carrera 2 calle 8", "ModaStyle Quimbaya"));
+        int opcion;
         do {
             System.out.println("====ModaStyle====");
             System.out.println("====Catalogo====");
@@ -37,14 +88,14 @@ public class App {
             System.out.println("====informacion====");
             System.out.println("18. ver ingresos de sucursal");
             System.out.println("19. consultar articulo mas vendido.");
+            System.out.println("0. Salir");
 
-            opcion = sc.nextInt();
-            sc.nextLine();
+            opcion = leerEntero("Seleccione una opcion:");
+
             switch (opcion) {
-                case 1:
-                    System.out.println("ingrese el codigo de la prenda");
-                    int codigoPrenda = Integer.parseInt(sc.nextLine());
-                    if(empresa.verificarPrenda(codigoPrenda)){
+                case 1: {
+                    int codigoPrenda = leerEntero("ingrese el codigo de la prenda");
+                    if (empresa.verificarPrenda(codigoPrenda)) {
                         System.out.println("la prenda ya existe");
                         break;
                     }
@@ -52,326 +103,192 @@ public class App {
                     String nombrePrenda = sc.nextLine();
                     System.out.println("ingrese la marca de la prenda");
                     String marca = sc.nextLine();
-                    System.out.println("ingrese el valor por unidad de la prenda");
-                    double precio = Double.parseDouble(sc.nextLine());
-                    System.out.println("escoja la categoria de la prenda");
-                    System.out.println("1. camiseta");
-                    System.out.println("2. pantalon");
-                    System.out.println("3. vestido");
-                    System.out.println("4. chaqueta");
-                    System.out.println("5. calzado");
-                    int opcionCategoria = sc.nextInt();
-                    CategoriaPrenda categoriaPrenda = null;
-                    switch (opcionCategoria){
-                        case 1:
-                            categoriaPrenda = CategoriaPrenda.CAMISETA;
-                            break;
-                        case 2:
-                            categoriaPrenda = CategoriaPrenda.PANTALON;
-                            break;
-                        case 3:
-                            categoriaPrenda = CategoriaPrenda.VESTIDO;
-                            break;
-                        case 4:
-                            categoriaPrenda = CategoriaPrenda.CHAQUETA;
-                            break;
-                        case 5:
-                            categoriaPrenda = CategoriaPrenda.CALZADO;
-                            break;
-                        default:
-                            System.out.println("Categoría inválida");
-                            break;
-                    }
+                    double precio = leerDouble("ingrese el valor por unidad de la prenda");
+                    CategoriaPrenda categoriaPrenda = leerCategoriaPrenda();
                     Prenda prenda = new Prenda(codigoPrenda, nombrePrenda, marca, precio, categoriaPrenda);
-                    empresa.agregarPrenda(prenda);
-                case 2:
+                    if (empresa.agregarPrenda(prenda)) {
+                        System.out.println("la prenda se ha agregado al catalogo");
+                    }
+                    break;
+                }
+                case 2: {
                     empresa.mostrarCatalogo();
-                case 3:
-                    System.out.println("Ingrese el código de la sucursal:");
-                    int codigo = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion3 = empresa.buscarSucursal(codigo);
-
-                    if (seleccion3 == null) {
-                        System.out.println("Sucursal no encontrada");
+                    break;
+                }
+                case 3: {
+                    int documento = leerEntero("Ingrese el documento del cliente");
+                    if (empresa.verificarPersona(documento)) {
+                        System.out.println("La persona ya esta registrada");
                         break;
                     }
-
-                    System.out.println("Ingrese el documento del cliente");
-                    int documento = Integer.parseInt(sc.nextLine());
-
-                    if (seleccion3.verificarPersona(documento)) {
-                        System.out.println("La persona ya está registrada");
-                        break;
-                    }
-
                     System.out.println("Ingrese el nombre del cliente");
                     String nombre = sc.nextLine();
-
                     System.out.println("Ingrese el correo del cliente");
                     String correo = sc.nextLine();
-
-                    System.out.println("Ingrese el teléfono del cliente");
+                    System.out.println("Ingrese el telefono del cliente");
                     String telefono = sc.nextLine();
-
-                    System.out.println("Escoja la categoría del cliente");
-                    System.out.println("1. Bronce");
-                    System.out.println("2. Plata");
-                    System.out.println("3. Oro");
-
-                    int opcionCategoriaCliente = Integer.parseInt(sc.nextLine());
-
-                    CategoriaCliente categoriaCliente = null;
-
-                    switch (opcionCategoriaCliente) {
-                        case 1:
-                            categoriaCliente = CategoriaCliente.BRONCE;
-                            break;
-                        case 2:
-                            categoriaCliente = CategoriaCliente.PLATA;
-                            break;
-                        case 3:
-                            categoriaCliente = CategoriaCliente.ORO;
-                            break;
-                        default:
-                            System.out.println("Categoría inválida");
-                            break;
+                    int codigoAfiliacion = leerEntero("Ingrese el codigo de afiliacion");
+                    CategoriaCliente categoriaCliente = leerCategoriaCliente();
+                    Cliente cliente = new Cliente(documento, nombre, correo, telefono, codigoAfiliacion, categoriaCliente);
+                    if (empresa.agregarCliente(cliente)) {
+                        System.out.println("se ha agregado al cliente");
                     }
-                    Cliente cliente = new Cliente(
-                            nombre,
-                            documento,
-                            correo,
-                            telefono,
-                            documento,
-                            categoriaCliente
-                    );
-
-                    seleccion3.agregarCliente(cliente);
                     break;
-                case 4:
-                    System.out.println("Ingrese el código de la sucursal:");
-                    int codigo4 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion4 = empresa.buscarSucursal(codigo4);
-
-                    if (seleccion4 == null) {
-                        System.out.println("Sucursal no encontrada");
-                        break;
-                    }
-                    System.out.println("Ingrese el documento del cliente:");
-                    int documento4 = Integer.parseInt(sc.nextLine());
-
-                    Cliente cliente4 = seleccion4.buscarCliente(documento4);
-
-                    if (cliente4 == null) {
+                }
+                case 4: {
+                    int documento = leerEntero("Ingrese el documento del cliente:");
+                    Cliente cliente = empresa.buscarCliente(documento);
+                    if (cliente == null) {
                         System.out.println("Cliente no encontrado");
                         break;
                     }
-
                     System.out.println("Ingrese el nuevo nombre:");
-                    cliente4.setNombre(sc.nextLine());
-
+                    cliente.setNombre(sc.nextLine());
                     System.out.println("Ingrese el nuevo correo:");
-                    cliente4.setCorreo(sc.nextLine());
-
-                    System.out.println("Ingrese el nuevo teléfono:");
-                    cliente4.setTelefono(sc.nextLine());
-
-                    System.out.println("Ingrese la categoría (1. BRONCE, 2. PLATA, 3. ORO):");
-                    int categoria4 = Integer.parseInt(sc.nextLine());
-
-                    switch (categoria4) {
-                        case 1:
-                            cliente4.setCategoria(CategoriaCliente.BRONCE);
-                            break;
-                        case 2:
-                            cliente4.setCategoria(CategoriaCliente.PLATA);
-                            break;
-                        case 3:
-                            cliente4.setCategoria(CategoriaCliente.ORO);
-                            break;
-                        default:
-                            System.out.println("Categoría inválida");
-                    }
-
+                    cliente.setCorreo(sc.nextLine());
+                    System.out.println("Ingrese el nuevo telefono:");
+                    cliente.setTelefono(sc.nextLine());
+                    cliente.setCategoria(leerCategoriaCliente());
                     System.out.println("Cliente actualizado");
                     break;
-                case 5:
-                    System.out.println("Ingrese el código de la sucursal: ");
-                    int codigo5 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion5 = empresa.buscarSucursal(codigo5);
-
-                    if (seleccion5 == null) {
-                        System.out.println("Sucursal no encontrada");
-                        break;
-                    }
-
-                    seleccion5.mostrarClientes();
+                }
+                case 5: {
+                    empresa.mostrarClientes();
                     break;
-
-                case 6:
-                    System.out.println("Ingrese el código de la sucursal: ");
-                    int codigo6 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion6 = empresa.buscarSucursal(codigo6);
-
-                    if (seleccion6 == null) {
-                        System.out.println("Sucursal no encontrada");
-                        break;
-                    }
-
-                    System.out.println("Ingrese el documento del cliente: ");
-                    int documento6 = Integer.parseInt(sc.nextLine());
-
-                    seleccion6.eliminarCliente(documento6);
+                }
+                case 6: {
+                    int documento = leerEntero("Ingrese el documento del cliente: ");
+                    empresa.eliminarCliente(documento);
                     break;
-
-                case 7:
-                    System.out.println("Ingrese el código de la sucursal:");
-                    int codigo7 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion7 = empresa.buscarSucursal(codigo7);
-
-                    if (seleccion7 == null) {
+                }
+                case 7: {
+                    break;
+                }
+                case 8: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
                         System.out.println("Sucursal no encontrada");
                         break;
                     }
-
-                    System.out.println("Ingrese el documento del vendedor");
-                    int documento7 = Integer.parseInt(sc.nextLine());
-
-                    if (seleccion7.verificarPersona(documento7)) {
-                        System.out.println("La persona ya está registrada");
+                    int documento = leerEntero("Ingrese el documento del vendedor");
+                    if (empresa.verificarPersona(documento)) {
+                        System.out.println("La persona ya esta registrada");
                         break;
                     }
-
                     System.out.println("Ingrese el nombre del vendedor");
-                    String nombre7 = sc.nextLine();
-
+                    String nombre = sc.nextLine();
                     System.out.println("Ingrese el correo del vendedor");
-                    String correo7 = sc.nextLine();
-
-                    System.out.println("Ingrese el teléfono del vendedor");
-                    String telefono7 = sc.nextLine();
-
-                    System.out.println("Ingrese el código del vendedor");
-                    int codigoVendedor7 = Integer.parseInt(sc.nextLine());
-
-                    System.out.println("Ingrese la fecha de contratación");
-                    String fecha7 = sc.nextLine();
-
-                    System.out.println("Ingrese el salario del vendedor");
-                    double salario7 = Double.parseDouble(sc.nextLine());
-
-                    Vendedor vendedor7 = new Vendedor(
-                            documento7,
-                            nombre7,
-                            correo7,
-                            telefono7,
-                            codigoVendedor7,
-                            fecha7,
-                            salario7
-                    );
-
-                    seleccion7.agregarVendedor(vendedor7);
+                    String correo = sc.nextLine();
+                    System.out.println("Ingrese el telefono del vendedor");
+                    String telefono = sc.nextLine();
+                    int codigoVendedor = leerEntero("Ingrese el codigo del vendedor");
+                    System.out.println("Ingrese la fecha de contratacion");
+                    String fecha = sc.nextLine();
+                    double salario = leerDouble("Ingrese el salario del vendedor");
+                    Vendedor vendedor = new Vendedor(documento, nombre, correo, telefono, codigoVendedor, fecha, salario);
+                    if (empresa.agregarVendedor(sucursal, vendedor)) {
+                        System.out.println("se ha agregado al vendedor");
+                    }
                     break;
-
-                case 8:
-                    System.out.println("Ingrese el código de la sucursal:");
-                    int codigo8 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion8 = empresa.buscarSucursal(codigo8);
-
-                    if (seleccion8 == null) {
+                }
+                case 9: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
                         System.out.println("Sucursal no encontrada");
                         break;
                     }
-                    System.out.println("Ingrese el documento del vendedor:");
-                    int documento8 = Integer.parseInt(sc.nextLine());
-
-                    Vendedor vendedor8 = seleccion8.buscarVendedor(documento8);
-
-                    if (vendedor8 == null) {
+                    int documento = leerEntero("Ingrese el documento del vendedor:");
+                    Vendedor vendedor = sucursal.buscarVendedor(documento);
+                    if (vendedor == null) {
                         System.out.println("Vendedor no encontrado");
                         break;
                     }
-
                     System.out.println("Ingrese el nuevo nombre:");
-                    vendedor8.setNombre(sc.nextLine());
-
+                    vendedor.setNombre(sc.nextLine());
                     System.out.println("Ingrese el nuevo correo:");
-                    vendedor8.setCorreo(sc.nextLine());
-
-                    System.out.println("Ingrese el nuevo teléfono:");
-                    vendedor8.setTelefono(sc.nextLine());
-
-                    System.out.println("Ingrese el nuevo salario:");
-                    vendedor8.setSalario(sc.nextDouble());
-
+                    vendedor.setCorreo(sc.nextLine());
+                    System.out.println("Ingrese el nuevo telefono:");
+                    vendedor.setTelefono(sc.nextLine());
+                    vendedor.setSalario(leerDouble("Ingrese el nuevo salario:"));
                     System.out.println("Vendedor actualizado");
                     break;
-                case 9:
-                    System.out.println("Ingrese el código de la sucursal: ");
-                    int codigo9 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion9 = empresa.buscarSucursal(codigo9);
-
-                    if (seleccion9 == null) {
+                }
+                case 10: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal: ");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
                         System.out.println("Sucursal no encontrada");
                         break;
                     }
-
-                    seleccion9.mostrarVendedores();
+                    sucursal.mostrarVendedores();
                     break;
-                case 10:
-                    System.out.println("Ingrese el código de la sucursal: ");
-                    int codigo10 = Integer.parseInt(sc.nextLine());
-
-                    Sucursal seleccion10 = empresa.buscarSucursal(codigo10);
-
-                    if (seleccion10 == null) {
+                }
+                case 11: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal: ");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
                         System.out.println("Sucursal no encontrada");
                         break;
                     }
-
-                    System.out.println("Ingrese el documento del vendedor:");
-                    int documento9 = Integer.parseInt(sc.nextLine());
-
-                    seleccion10.eliminarVendedor(documento9);
+                    int documento = leerEntero("Ingrese el documento del vendedor:");
+                    sucursal.eliminarVendedor(documento);
                     break;
-                case 11:
-
-                case 12:
-
-                case 13:
-                    System.out.println("ingrese el codigo de la sucursal");
-                    int codigoSucursal = Integer.parseInt(sc.nextLine());
-                    System.out.println("ingrese el codigo de la prenda");
-                    int codigo = Integer.parseInt(sc.nextLine());
+                }
+                case 12: {
+                    break;
+                }
+                case 13: {
+                    int codigoSucursal = leerEntero("ingrese el codigo de la sucursal");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    int codigoPrenda = leerEntero("ingrese el codigo de la prenda");
+                    Prenda prenda = empresa.buscarPrenda(codigoPrenda);
+                    if (prenda == null) {
+                        System.out.println("La prenda no existe en el catalogo");
+                        break;
+                    }
                     System.out.println("ingrese la talla");
-                    String talla = sc.nextLine();
+                    String talla = sc.nextLine().trim().toUpperCase();
+                    if (!prenda.tallaValida(talla)) {
+                        System.out.println("Talla invalida (XS, S, M, L, XL; calzado 35 a 44)");
+                        break;
+                    }
                     System.out.println("ingrese el color");
-                    String color = sc.nextLine();
-                    System.out.println("ingrese la cantidad");
-                    int cantidad = Integer.parseInt(sc.nextLine());
-                    RegistrosInventario registro = new RegistrosInventario(talla, color, cantidad, codigo);
+                    String color = sc.nextLine().trim();
+                    int cantidad = leerEntero("ingrese la cantidad");
+                    if (cantidad <= 0) {
+                        System.out.println("La cantidad debe ser mayor que 0");
+                        break;
+                    }
+                    RegistroInventario registro = new RegistroInventario(prenda, sucursal, talla, color, cantidad);
+                    if (sucursal.agregarRegistro(registro)) {
+                        System.out.println("se ha agregado el registro al inventario");
+                    } else {
+                        System.out.println("Ya existe un registro con esa prenda, talla y color");
+                    }
+                    break;
+                }
                 case 14:
-
                 case 15:
-
                 case 16:
-
                 case 17:
-
                 case 18:
-
                 case 19:
-
-                case 20:
-
+                    break;
+                case 0:
+                    System.out.println("Hasta luego");
+                    break;
+                default:
+                    System.out.println("Opcion invalida");
             }
-            sc.nextLine();
-        } while (opcion!=0);
+            if (opcion != 0) {
+                sc.nextLine();
+            }
+        } while (opcion != 0);
     }
 }
