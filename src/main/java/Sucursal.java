@@ -171,5 +171,4 @@ public class Sucursal {
         return total;
     }
 
-
 }

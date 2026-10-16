@@ -162,6 +162,17 @@ public class App {
                     break;
                 }
                 case 7: {
+                    int documento = leerEntero("Ingrese el documento del cliente:");
+                    Cliente cliente = empresa.buscarCliente(documento);
+                    if (cliente == null) {
+                        System.out.println("Cliente no encontrado");
+                        break;
+                    }
+                    if (cliente.getHistorial().isEmpty()) {
+                        System.out.println("El cliente no tiene compras registradas");
+                    } else {
+                        cliente.mostrarHistorial();
+                    }
                     break;
                 }
                 case 8: {
@@ -237,6 +248,23 @@ public class App {
                     break;
                 }
                 case 12: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    int documento = leerEntero("Ingrese el documento del vendedor:");
+                    Vendedor vendedor = sucursal.buscarVendedor(documento);
+                    if (vendedor == null) {
+                        System.out.println("Vendedor no encontrado");
+                        break;
+                    }
+                    if (vendedor.getHistorial().isEmpty()) {
+                        System.out.println("El vendedor no tiene ventas registradas");
+                    } else {
+                        vendedor.mostrarHistorial();
+                    }
                     break;
                 }
                 case 13: {
@@ -273,13 +301,114 @@ public class App {
                     }
                     break;
                 }
-                case 14:
-                case 15:
-                case 16:
-                case 17:
-                case 18:
-                case 19:
+                case 14: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    sucursal.mostrarDisponibles();
                     break;
+                }
+                case 15: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    sucursal.mostrarAgotados();
+                    break;
+                }
+                case 16: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    int documentoVendedor = leerEntero("Ingrese el documento del vendedor:");
+                    Vendedor vendedor = sucursal.buscarVendedor(documentoVendedor);
+                    if (vendedor == null) {
+                        System.out.println("El vendedor no pertenece a esta sucursal");
+                        break;
+                    }
+                    int documentoCliente = leerEntero("Ingrese el documento del cliente:");
+                    Cliente cliente = empresa.buscarCliente(documentoCliente);
+                    if (cliente == null) {
+                        System.out.println("Cliente no encontrado");
+                        break;
+                    }
+                    int codigoVenta = leerEntero("Ingrese el codigo de la venta:");
+                    if (empresa.verificarVenta(codigoVenta)) {
+                        System.out.println("Ya existe una venta con ese codigo");
+                        break;
+                    }
+                    System.out.println("Ingrese la fecha de la venta:");
+                    String fechaVenta = sc.nextLine();
+                    Venta venta = new Venta(codigoVenta, fechaVenta, sucursal, vendedor, cliente);
+
+                    String otro;
+                    do {
+                        int codigoPrenda = leerEntero("ingrese el codigo de la prenda:");
+                        System.out.println("ingrese la talla:");
+                        String tallaVenta = sc.nextLine().trim();
+                        System.out.println("ingrese el color:");
+                        String colorVenta = sc.nextLine().trim();
+                        RegistroInventario registro = sucursal.buscarRegistro(codigoPrenda, tallaVenta, colorVenta);
+                        if (registro == null) {
+                            System.out.println("Ese producto no esta en el inventario de la sucursal");
+                        } else {
+                            int cantidadVenta = leerEntero("ingrese la cantidad:");
+                            if (!venta.agregarDetalle(registro, cantidadVenta)) {
+                                System.out.println("La cantidad debe ser mayor que 0");
+                            }
+                        }
+                        System.out.println("Desea agregar otro producto? (s/n)");
+                        otro = sc.nextLine().trim();
+                    } while (otro.equalsIgnoreCase("s"));
+
+                    System.out.println(venta);
+                    if (venta.confirmar()) {
+                        System.out.println("Venta confirmada");
+                    } else {
+                        System.out.println("No se pudo confirmar: no hay productos o alguna cantidad supera las existencias. El inventario no cambio.");
+                    }
+                    break;
+                }
+                case 17: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    sucursal.mostrarVentas();
+                    break;
+                }
+                case 18: {
+                    int codigoSucursal = leerEntero("Ingrese el codigo de la sucursal:");
+                    Sucursal sucursal = empresa.buscarSucursal(codigoSucursal);
+                    if (sucursal == null) {
+                        System.out.println("Sucursal no encontrada");
+                        break;
+                    }
+                    System.out.println("Ingresos de " + sucursal.getNombre() + ": "
+                            + String.format("%.2f", sucursal.calcularIngresos()));
+                    break;
+                }
+                case 19: {
+                    Prenda masVendida = empresa.prendaMasVendida();
+                    if (masVendida == null) {
+                        System.out.println("Aun no hay ventas registradas");
+                    } else {
+                        System.out.println("Prenda mas vendida: " + masVendida.getNombre()
+                                + " (codigo " + masVendida.getCodigoUnico() + ") con "
+                                + masVendida.calcularUnidadesVendidas() + " unidades");
+                    }
+                    break;
+                }
                 case 0:
                     System.out.println("Hasta luego");
                     break;

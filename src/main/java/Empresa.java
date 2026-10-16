@@ -150,5 +150,29 @@ public class Empresa {
             System.out.println(cliente);
         }
     }
+
+    public boolean verificarVenta(int codigo) {
+        for (Sucursal sucursal : sucursales) {
+            for (Venta venta : sucursal.getRegistroVentas()) {
+                if (venta.getCodigo() == codigo) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Prenda prendaMasVendida() {
+        Prenda masVendida = null;
+        int maximo = 0;
+        for (Prenda prenda : catalogo) {
+            int unidades = prenda.calcularUnidadesVendidas();
+            if (unidades > maximo) {
+                maximo = unidades;
+                masVendida = prenda;
+            }
+        }
+        return masVendida;
+    }
 }
 
